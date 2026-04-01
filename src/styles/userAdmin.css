@@ -1,0 +1,36 @@
+.admin-users-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f3ff, #ffffff, #eff6ff);
+}
+
+.admin-users-main {
+  padding-top: 80px;
+  padding-bottom: 48px;
+}
+
+.admin-users-wrapper {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+.admin-users-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.admin-users-header h1 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0;
+}
+
+.admin-users-page .ant-table-wrapper {
+  background: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
