@@ -60,7 +60,7 @@ export const NoteModal: React.FC<NoteModalProps> = ({
       okText={editing ? "Cap nhat" : "Tao"}
       cancelText="Huy"
       width={640}
-      destroyOnClose
+      destroyOnHidden
     >
       <Form form={form} layout="vertical">
         <Form.Item name="title" label="Tieu de">

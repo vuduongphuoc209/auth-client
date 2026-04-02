@@ -273,7 +273,7 @@ const AdminUsers: React.FC = () => {
         okText={editingId ? "Cập nhật" : "Tạo"}
         cancelText="Hủy"
         width={420}
-        destroyOnClose
+        destroyOnHidden
       >
         <Form form={form} layout="vertical">
           <Form.Item
