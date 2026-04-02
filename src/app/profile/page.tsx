@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import Header from "@/components/header";
+import Header from "@/components/Header/header";
 import { Form, Input, Button, Card, message } from "antd";
 import type { FormProps } from "antd";
 import type { FormInstance } from "antd/es/form";

@@ -57,7 +57,7 @@ const Header: React.FC = () => {
       ? [
           {
             key: "admin",
-            label: "Quản lý Users",
+            label: "Account Users",
             onClick: () => router.push("/users"),
             className: "header-dropdown-admin",
           },
@@ -92,9 +92,13 @@ const Header: React.FC = () => {
           <>
             {isAdmin && (
               <Link href="/users" className="admin-link">
-                Quản lý Users
+                Account Users
               </Link>
             )}
+
+            <Link href="/note-app" className="note-app-link">
+              Note
+            </Link>
 
             <div style={{ cursor: "pointer" }}>
               <Dropdown menu={{ items }}>

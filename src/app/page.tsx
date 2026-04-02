@@ -1,7 +1,7 @@
 "use client";
 import { useEffect } from "react";
 import { requestGet } from "@/config/request";
-import Header from "@/components/header";
+import Header from "@/components/Header/header";
 
 const Home = () => {
   useEffect(() => {
