@@ -25,6 +25,7 @@ export const NoteModal: React.FC<NoteModalProps> = ({
   onSubmit,
 }) => {
   const [form] = Form.useForm<NoteFormValues>();
+  const color = Form.useWatch("color", form);
 
   useEffect(() => {
     if (open) {
@@ -76,8 +77,7 @@ export const NoteModal: React.FC<NoteModalProps> = ({
             }}
           >
             <Button>
-              {NOTE_COLORS.find((x) => x.value === form.getFieldValue("color"))
-                ?.label || "Mac dinh"}
+              {NOTE_COLORS.find((x) => x.value === color)?.label || "Mac dinh"}
             </Button>
           </Dropdown>
         </Form.Item>
