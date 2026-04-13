@@ -12,17 +12,9 @@ import {
 } from "@ant-design/icons";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import "@/styles/register.css";
+import "@/styles/auth/register.css";
 import { requestRegister } from "@/config/UserRequest";
-
-// Type form
-interface RegisterFormValues {
-  fullName: string;
-  email: string;
-  phone?: string;
-  password: string;
-  confirmPassword: string;
-}
+import { RegisterFormValues } from "@/types/forms";
 
 const RegisterUser: React.FC = () => {
   const router = useRouter();

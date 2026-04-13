@@ -9,6 +9,8 @@ import {
 import type { INote } from "@/config/NoteRequest";
 import { getColorMenuItems } from "@/components/Note/constants";
 import { getNoteBg } from "@/utils/noteHelpers";
+import "@/styles/note/noteCard.css";
+import { ConfirmDelete } from "@/components/common/ConfirmDelete/ConfirmDelete";
 
 interface NoteCardProps {
   note: INote;
@@ -27,84 +29,91 @@ export const NoteCard: React.FC<NoteCardProps> = ({
 }) => {
   const [isHovered, setIsHovered] = useState(false);
 
+  const hasContent = note.content && note.content.trim().length > 0;
+
   return (
     <div
-      style={{
-        background: getNoteBg(note.color),
-        borderRadius: 14,
-        border: "1px solid rgba(0,0,0,0.12)",
-        padding: 12,
-        minHeight: 110,
-        position: "relative",
-        cursor: "pointer",
-        transition: "transform 120ms ease, box-shadow 120ms ease",
-        boxShadow: isHovered ? "0 10px 28px rgba(0,0,0,0.12)" : "none",
-        transform: isHovered ? "translateY(-1px)" : "translateY(0px)",
-      }}
+      className={`note-card ${isHovered ? "hovered" : ""}`}
+      style={{ background: getNoteBg(note.color) }}
       onClick={() => onClick(note)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div style={{ display: "flex", justifyContent: "space-between", gap: 8 }}>
-        <div style={{ fontWeight: 700, fontSize: 14, lineHeight: 1.3 }}>
-          {note.title || "(Khong tieu de)"}
-        </div>
-        <Tooltip title={note.pinned ? "Bo ghim" : "Ghim"}>
+      {/* Header */}
+      <div
+        className={`note-card-header ${
+          hasContent ? "has-content" : "no-content"
+        }`}
+      >
+        {note.title ? (
+          <div className="note-card-title">{note.title}</div>
+        ) : hasContent ? null : (
+          <div className="note-card-empty" />
+        )}
+
+        <Tooltip title={note.pinned ? "Bỏ ghim" : "Ghim"}>
           <Button
+            type="text"
             size="small"
-            type={note.pinned ? "primary" : "default"}
+            icon={note.pinned ? <PushpinFilled /> : <PushpinOutlined />}
             onClick={(e) => {
               e.stopPropagation();
               onTogglePin(note);
             }}
-          >
-            {note.pinned ? <PushpinFilled /> : <PushpinOutlined />}
-          </Button>
+            className={`note-card-pin-btn ${
+              note.pinned || isHovered
+                ? "note-card-pin-visible"
+                : "note-card-pin-hidden"
+            } ${note.pinned ? "note-card-pin-active" : ""}`}
+            style={{
+              visibility:
+                note.title || hasContent || note.pinned
+                  ? "visible"
+                  : isHovered
+                    ? "visible"
+                    : "hidden",
+            }}
+          />
         </Tooltip>
       </div>
 
-      <div
-        style={{
-          marginTop: 8,
-          whiteSpace: "pre-wrap",
-          color: "rgba(0,0,0,0.78)",
-          fontSize: 13,
-          lineHeight: 1.45,
-        }}
-      >
-        {note.content}
-      </div>
+      {/* Content */}
+      {hasContent && <div className="note-card-content">{note.content}</div>}
 
+      {/* Toolbar */}
       <div
-        style={{
-          display: "flex",
-          justifyContent: "space-between",
-          alignItems: "center",
-          marginTop: 12,
-          opacity: isHovered ? 1 : 0,
-          transition: "opacity 120ms ease",
-        }}
+        className={`note-card-toolbar ${
+          hasContent ? "has-content" : "no-content"
+        } ${isHovered ? "visible" : "hidden"}`}
         onClick={(e) => e.stopPropagation()}
       >
-        <Space size={6}>
-          <Dropdown
-            menu={{ items: getColorMenuItems((c) => onChangeColor(note, c)) }}
-            trigger={["click"]}
-          >
-            <Button size="small" icon={<BgColorsOutlined />} />
-          </Dropdown>
-          <Popconfirm
-            title="Xoa note nay?"
-            okText="Xoa"
-            cancelText="Huy"
-            onConfirm={() => onDelete(note._id)}
-          >
-            <Button size="small" danger icon={<DeleteOutlined />} />
-          </Popconfirm>
+        <Space size={4}>
+          <Tooltip title="Thay đổi màu">
+            <Dropdown
+              menu={{ items: getColorMenuItems((c) => onChangeColor(note, c)) }}
+              trigger={["click"]}
+            >
+              <Button
+                type="text"
+                size="small"
+                icon={<BgColorsOutlined />}
+                className="note-card-action-btn"
+              />
+            </Dropdown>
+          </Tooltip>
+
+          <Tooltip title="Xóa">
+            <ConfirmDelete
+              onConfirm={() => {
+                if (note._id && onDelete) {
+                  onDelete(note._id);
+                }
+              }}
+            >
+              <Button type="text" danger icon={<DeleteOutlined />} />
+            </ConfirmDelete>
+          </Tooltip>
         </Space>
-        <div style={{ fontSize: 11, color: "rgba(0,0,0,0.45)" }}>
-          {new Date(note.updatedAt).toLocaleString()}
-        </div>
       </div>
     </div>
   );

@@ -1,4 +1,3 @@
-import React from "react";
 import type { MenuProps } from "antd";
 import { NOTE_COLORS } from "@/constants/noteColors";
 

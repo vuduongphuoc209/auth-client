@@ -9,16 +9,11 @@ import { DownOutlined, SettingOutlined } from "@ant-design/icons";
 import { Dropdown, message, Space } from "antd";
 import type { MenuProps } from "antd";
 import { requestLogout } from "@/config/UserRequest";
-
-interface IUser {
-  _id?: string;
-  fullName?: string;
-  email?: string;
-}
+import { IUserHeader } from "@/types/user";
 
 const Header: React.FC = () => {
   const { dataUser, isAdmin } = useStore() as {
-    dataUser: IUser;
+    dataUser: IUserHeader;
     isAdmin: boolean;
   };
 
@@ -82,7 +77,7 @@ const Header: React.FC = () => {
       {/* LEFT */}
       <div className="header-left">
         <Link href="/" className="logo-text">
-          logo
+          LOGO
         </Link>
       </div>
 
@@ -100,16 +95,23 @@ const Header: React.FC = () => {
               Note
             </Link>
 
-            <div style={{ cursor: "pointer" }}>
-              <Dropdown menu={{ items }}>
-                <a onClick={(e) => e.preventDefault()}>
-                  <Space>
+            <Dropdown menu={{ items }} placement="bottomRight">
+              <div className="user-dropdown-trigger">
+                <Space>
+                  <span
+                    style={{
+                      maxWidth: 150,
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap",
+                    }}
+                  >
                     {dataUser?.fullName || dataUser?.email || "Tài khoản"}
-                    <DownOutlined />
-                  </Space>
-                </a>
-              </Dropdown>
-            </div>
+                  </span>
+                  <DownOutlined style={{ fontSize: 12 }} />
+                </Space>
+              </div>
+            </Dropdown>
           </>
         ) : (
           <Link href="/sign-in" className="login-button">

@@ -34,23 +34,8 @@ import {
   requestDeleteUser,
 } from "@/config/UserRequest";
 import "@/styles/userAdmin.css";
-
-// ===== TYPES =====
-interface IUser {
-  _id: string;
-  fullName?: string;
-  email: string;
-  phone?: string;
-  isAdmin?: boolean;
-}
-
-interface UserFormValues {
-  fullName: string;
-  email: string;
-  phone?: string;
-  password?: string;
-  isAdmin?: boolean;
-}
+import { IUser } from "@/types/user";
+import { UserFormValues } from "@/types/forms";
 
 const AdminUsers: React.FC = () => {
   const {

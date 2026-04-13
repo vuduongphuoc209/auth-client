@@ -7,7 +7,7 @@ import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { requestLogin, requestLoginGoogle } from "@/config/UserRequest";
-import "@/styles/login.css";
+import "@/styles/auth/login.css";
 
 import { GoogleOAuthProvider } from "@react-oauth/google";
 import { GoogleLogin } from "@react-oauth/google";

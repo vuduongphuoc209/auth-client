@@ -1,96 +1,251 @@
+/* ===== MODERN GLASSMORPHISM HEADER ===== */
 .app-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
-  background-color: #fff;
-  border-bottom: 1px solid #e0e0e0;
-  margin-bottom: 2rem;
+  padding: 0.75rem 2rem;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.6);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  transition: all 0.3s ease;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
+.app-header:hover {
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .app-header {
+    background: rgba(15, 23, 42, 0.85);
+    border-bottom-color: rgba(71, 85, 105, 0.6);
+  }
+
+  .app-header:hover {
+    background: rgba(15, 23, 42, 0.95);
+  }
+}
+
+/* ===== LEFT SECTION ===== */
 .header-left {
   display: flex;
   align-items: center;
 }
 
 .logo-text {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #333;
+  font-size: 1.75rem;
+  font-weight: 800;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #ec4899 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   text-decoration: none;
-  transition: color 0.3s ease;
+  transition: all 0.3s ease;
   cursor: pointer;
-  text-transform: uppercase;
-}
-.logo-text:hover {
-  color: #646cff;
+  letter-spacing: -0.02em;
+  position: relative;
 }
 
+.logo-text::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+
+.logo-text:hover::after {
+  width: 100%;
+}
+
+.logo-text:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.1);
+}
+
+/* ===== RIGHT SECTION ===== */
 .header-right {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 12px;
+}
+
+/* ===== NAVIGATION LINKS ===== */
+.nav-link {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
 }
 
 .admin-link {
-  color: #646cff;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.note-app-link {
-  color: #10a7de;
-  text-decoration: none;
-  font-weight: 500;
-}
-
-.note-app-link:hover {
-  text-decoration: underline;
+  color: #6366f1;
+  background: rgba(99, 102, 241, 0.08);
+  padding: 10px;
+  border-radius: 10px;
 }
 
 .admin-link:hover {
-  color: #535bf2;
-  text-decoration: underline;
+  background: rgba(99, 102, 241, 0.15);
+  color: #4f46e5;
+  transform: translateY(-1px);
 }
 
+.note-app-link {
+  color: #0ea5e9;
+  background: rgba(14, 165, 233, 0.08);
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.note-app-link:hover {
+  background: rgba(14, 165, 233, 0.15);
+  color: #0284c7;
+  transform: translateY(-1px);
+}
+
+/* ===== LOGIN BUTTON ===== */
 .login-button {
-  padding: 0.5rem 1.5rem;
-  background-color: #646cff;
+  padding: 0.625rem 1.5rem;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
   color: white;
   text-decoration: none;
-  border-radius: 4px;
-  font-weight: 500;
-  transition: background-color 0.3s ease;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+  position: relative;
+  overflow: hidden;
+}
+
+.login-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.2),
+    transparent
+  );
+  transition: left 0.5s ease;
 }
 
 .login-button:hover {
-  background-color: #535bf2;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
 }
 
-/* Logout item trong dropdown: chữ đỏ, hover nền đỏ chữ trắng */
+.login-button:hover::before {
+  left: 100%;
+}
+
+/* ===== USER DROPDOWN ===== */
+.user-dropdown-trigger {
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  background: rgba(99, 102, 241, 0.08);
+  color: #1f2937;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-dropdown-trigger:hover {
+  background: rgba(99, 102, 241, 0.15);
+}
+
+/* ===== DROPDOWN MENU ITEMS ===== */
 .header-dropdown-logout.ant-dropdown-menu-item {
-  color: #ff4d4f !important;
+  color: #ef4444 !important;
+  border-radius: 6px;
+  margin: 2px 4px;
 }
 
 .header-dropdown-logout.ant-dropdown-menu-item:hover {
-  background-color: #ff4d4f !important;
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%) !important;
   color: #fff !important;
 }
 
 .header-dropdown-profile.ant-dropdown-menu-item {
-  color: #10a7de !important;
+  color: #0ea5e9 !important;
+  border-radius: 6px;
+  margin: 2px 4px;
 }
 
 .header-dropdown-profile.ant-dropdown-menu-item:hover {
-  background-color: #1f82e5 !important;
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%) !important;
   color: #fff !important;
 }
 
 .header-dropdown-admin.ant-dropdown-menu-item {
-  color: #535bf2 !important;
+  color: #6366f1 !important;
+  border-radius: 6px;
+  margin: 2px 4px;
 }
 
 .header-dropdown-admin.ant-dropdown-menu-item:hover {
-  background-color: #535bf2 !important;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%) !important;
   color: #fff !important;
+}
+
+/* ===== ANT DROPDOWN OVERRIDES ===== */
+.ant-dropdown-menu {
+  border-radius: 12px !important;
+  padding: 8px !important;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15) !important;
+  border: 1px solid rgba(226, 232, 240, 0.8) !important;
+}
+
+.ant-dropdown-menu-item {
+  border-radius: 8px !important;
+  padding: 10px 16px !important;
+  font-weight: 500 !important;
+  transition: all 0.2s ease !important;
+}
+
+.ant-dropdown-menu-item:hover {
+  transform: translateX(2px);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .app-header {
+    padding: 0.75rem 1rem;
+  }
+
+  .logo-text {
+    font-size: 1.5rem;
+  }
+
+  .nav-link {
+    padding: 0.4rem 0.75rem;
+    font-size: 0.85rem;
+  }
+
+  .login-button {
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+  }
 }

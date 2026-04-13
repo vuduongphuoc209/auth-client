@@ -15,22 +15,8 @@ import { useRouter } from "next/navigation";
 import { useStore } from "../../hooks/useStore";
 import { requestUpdateUser } from "@/config/UserRequest";
 import "@/styles/profile.css";
-
-// Type user (bạn nên sync với backend)
-interface IUser {
-  _id?: string;
-  fullName?: string;
-  email?: string;
-  phone?: string;
-}
-
-// Type form
-interface ProfileFormValues {
-  fullName: string;
-  email: string;
-  phone?: string;
-  password?: string;
-}
+import { IUserProfile } from "@/types/user";
+import { ProfileFormValues } from "@/types/forms";
 
 const ProfileUser: React.FC = () => {
   const {
@@ -38,8 +24,8 @@ const ProfileUser: React.FC = () => {
     setDataUser,
     loading: contextLoading,
   } = useStore() as {
-    dataUser: IUser;
-    setDataUser: (user: IUser) => void;
+    dataUser: IUserProfile;
+    setDataUser: (user: IUserProfile) => void;
     loading: boolean;
   };
 

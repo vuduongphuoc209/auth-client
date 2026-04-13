@@ -1,6 +1,7 @@
+/* ===== MODERN ADMIN USERS PAGE ===== */
 .admin-users-page {
   min-height: 100vh;
-  background: linear-gradient(135deg, #f5f3ff, #ffffff, #eff6ff);
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
 }
 
 .admin-users-main {
@@ -9,28 +10,251 @@
 }
 
 .admin-users-wrapper {
-  max-width: 960px;
+  max-width: 1100px;
   margin: 0 auto;
-  padding: 0 16px;
+  padding: 0 24px;
 }
 
+/* Header - Modern styling */
 .admin-users-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 24px;
+  margin-bottom: 28px;
+  padding: 0 4px;
 }
 
 .admin-users-header h1 {
-  font-size: 24px;
-  font-weight: 700;
-  color: #1f2937;
+  font-size: 28px;
+  font-weight: 800;
+  background: linear-gradient(135deg, #1f2937 0%, #6366f1 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
   margin: 0;
+  letter-spacing: -0.02em;
 }
 
+/* Add user button - Modern gradient */
+.admin-users-header .ant-btn-primary {
+  height: 44px;
+  padding: 0 20px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  border: none;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+  transition: all 0.3s ease;
+}
+
+.admin-users-header .ant-btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
+}
+
+/* Table container - Modern glassmorphism */
 .admin-users-page .ant-table-wrapper {
-  background: #fff;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.06),
+    0 0 0 1px rgba(0, 0, 0, 0.04) inset;
+  border: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+/* Table styling */
+.admin-users-page .ant-table {
+  background: transparent;
+}
+
+.admin-users-page .ant-table-thead > tr > th {
+  background: #f8fafc;
+  font-weight: 700;
+  color: #374151;
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 16px;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.admin-users-page .ant-table-tbody > tr > td {
+  padding: 16px;
+  color: #4b5563;
+  font-weight: 500;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.admin-users-page .ant-table-tbody > tr:hover > td {
+  background: rgba(99, 102, 241, 0.04);
+}
+
+/* Action buttons in table */
+.admin-users-page .ant-btn-link {
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border-radius: 6px;
+  padding: 4px 12px;
+}
+
+.admin-users-page .ant-btn-link:hover {
+  background: rgba(99, 102, 241, 0.1);
+}
+
+.admin-users-page .ant-btn-dangerous {
+  font-weight: 600;
+  transition: all 0.2s ease;
+  border-radius: 6px;
+  padding: 4px 12px;
+}
+
+.admin-users-page .ant-btn-dangerous:hover {
+  background: rgba(239, 68, 68, 0.1);
+}
+
+/* Tag styling */
+.admin-users-page .ant-tag {
+  border-radius: 6px;
+  padding: 4px 12px;
+  font-weight: 600;
+  font-size: 12px;
+  border: none;
+}
+
+.admin-users-page .ant-tag-blue {
+  background: linear-gradient(135deg, #8fb0e5 0%, #939eb6 100%);
+  color: white;
+}
+
+.admin-users-page .ant-tag:not(.ant-tag-blue) {
+  background: #f1f5f9;
+  color: #64748b;
+}
+
+/* Pagination */
+.admin-users-page .ant-pagination {
+  margin-top: 20px;
+}
+
+.admin-users-page .ant-pagination-item {
+  border-radius: 8px;
+  border: 1px solid #e2e8f0;
+  font-weight: 600;
+}
+
+.admin-users-page .ant-pagination-item-active {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  border-color: transparent;
+}
+
+.admin-users-page .ant-pagination-item-active a {
+  color: white !important;
+}
+
+/* Modal styling */
+.admin-users-page .ant-modal-content {
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+.admin-users-page .ant-modal-header {
+  padding: 24px 24px 16px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.admin-users-page .ant-modal-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1f2937;
+}
+
+.admin-users-page .ant-modal-body {
+  padding: 24px;
+}
+
+.admin-users-page .ant-modal-footer {
+  padding: 16px 24px 24px;
+  border-top: none;
+}
+
+/* Modal form styling */
+.admin-users-page .ant-form-item-label > label {
+  font-weight: 600;
+  color: #374151;
+}
+
+.admin-users-page .ant-input,
+.admin-users-page .ant-input-password {
+  border-radius: 10px;
+  height: 44px;
+  border: 2px solid #e5e7eb;
+  transition: all 0.2s ease;
+}
+
+.admin-users-page .ant-input:hover,
+.admin-users-page .ant-input-password:hover {
+  border-color: #cbd5e1;
+}
+
+.admin-users-page .ant-input:focus,
+.admin-users-page .ant-input-password-focused {
+  border-color: #6366f1;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+/* Modal buttons */
+.admin-users-page .ant-modal-footer .ant-btn {
+  height: 44px;
+  padding: 0 24px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.admin-users-page .ant-modal-footer .ant-btn-primary {
+  background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  border: none;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.35);
+}
+
+/* Popconfirm styling */
+.admin-users-page .ant-popconfirm-inner-content {
   border-radius: 12px;
   padding: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-users-main {
+    padding-top: 60px;
+  }
+
+  .admin-users-wrapper {
+    padding: 0 16px;
+  }
+
+  .admin-users-header {
+    flex-direction: column;
+    gap: 16px;
+    align-items: stretch;
+  }
+
+  .admin-users-header h1 {
+    font-size: 24px;
+    text-align: center;
+  }
+
+  .admin-users-page .ant-table-wrapper {
+    padding: 16px;
+    border-radius: 16px;
+  }
+
+  .admin-users-page .ant-table-thead > tr > th,
+  .admin-users-page .ant-table-tbody > tr > td {
+    padding: 12px;
+    font-size: 13px;
+  }
 }

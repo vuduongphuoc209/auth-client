@@ -1,0 +1,207 @@
+/* ===== MODERN NOTE APP ===== */
+.note-app {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f8fafc 0%, #f1f5f9 100%);
+}
+
+/* ===== MAIN CONTAINER ===== */
+.note-app-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px 20px 48px;
+}
+
+/* ===== TOOLBAR ===== */
+.note-app-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 24px;
+  max-width: 680px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Search input - modern pill style */
+.note-app-search {
+  flex: 1;
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+.note-app-search .ant-input {
+  height: 52px;
+  border-radius: 26px;
+  border: 2px solid #e2e8f0;
+  background: white;
+  padding: 0 24px;
+  font-size: 15px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: all 0.3s ease;
+}
+
+.note-app-search .ant-input:hover {
+  border-color: #cbd5e1;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.note-app-search .ant-input:focus {
+  border-color: #6366f1;
+  box-shadow:
+    0 0 0 4px rgba(99, 102, 241, 0.1),
+    0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.note-app-search .ant-input-affix-wrapper {
+  border-radius: 26px;
+  padding: 0 8px 0 20px;
+}
+
+.note-app-search .ant-input-clear-icon {
+  color: #94a3b8;
+  font-size: 16px;
+}
+
+/* Create button - modern gradient */
+.note-app-create-btn {
+  height: 52px;
+  padding: 0 28px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 15px;
+  background: linear-gradient(135deg, #5ee8e1 0%, #9f7de4 100%);
+  border: none;
+  color: white;
+  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
+  transition: all 0.3s ease;
+  white-space: nowrap;
+}
+
+.note-app-create-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.5);
+}
+
+.note-app-create-btn:active {
+  transform: translateY(0);
+}
+
+/* ===== GRID LAYOUT - MODERN MASONRY STYLE ===== */
+.note-app-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 20px;
+  transition: opacity 0.2s ease;
+  padding: 0 4px;
+}
+
+@media (min-width: 1400px) {
+  .note-app-grid {
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  }
+}
+
+@media (max-width: 640px) {
+  .note-app-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Loading state */
+.note-app-grid.loading {
+  opacity: 0.6;
+}
+
+/* ===== SECTION LABELS ===== */
+.note-app-section {
+  grid-column: 1 / -1;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  color: #64748b;
+  margin-top: 16px;
+  margin-bottom: 4px;
+  padding-left: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.note-app-section svg {
+  font-size: 14px;
+  color: #6366f1;
+}
+
+/* First section has no top margin */
+.note-app-section:first-of-type {
+  margin-top: 8px;
+}
+
+/* ===== EMPTY STATE - MODERN ===== */
+.note-app-empty {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 80px 20px;
+  color: #64748b;
+}
+
+.note-app-empty::before {
+  content: "📝";
+  display: block;
+  font-size: 64px;
+  margin-bottom: 20px;
+  opacity: 0.5;
+  animation: floatIcon 3s ease-in-out infinite;
+}
+
+@keyframes floatIcon {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+.note-app-empty::after {
+  content: "Chưa có ghi chú nào. Hãy tạo ghi chú đầu tiên!";
+  display: block;
+  font-size: 16px;
+  font-weight: 500;
+  color: #94a3b8;
+}
+
+/* ===== SMOOTH FADE ANIMATION ===== */
+.note-fade-in {
+  animation: fadeIn 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  .note-app-main {
+    padding: 16px 16px 32px;
+  }
+
+  .note-app-toolbar {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .note-app-create-btn {
+    width: 100%;
+  }
+}

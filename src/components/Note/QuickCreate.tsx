@@ -1,85 +1,96 @@
 import React, { useState } from "react";
-import { Button, Dropdown, Input, Space } from "antd";
+import { Button, Dropdown, Input } from "antd";
+import { BgColorsOutlined } from "@ant-design/icons";
 import { getColorMenuItems } from "@/components/Note/constants";
 import { getNoteBg } from "@/utils/noteHelpers";
+import "@/styles/note/quickCreate.css";
 
 interface QuickCreateProps {
   onSubmit: (data: { title: string; content: string; color: string }) => void;
 }
 
 export const QuickCreate: React.FC<QuickCreateProps> = ({ onSubmit }) => {
-  const [quickOpen, setQuickOpen] = useState(false);
-  const [quickTitle, setQuickTitle] = useState("");
-  const [quickContent, setQuickContent] = useState("");
-  const [quickColor, setQuickColor] = useState("default");
+  const [open, setOpen] = useState(false);
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [color, setColor] = useState("default");
 
   const handleSave = () => {
-    if (!quickTitle.trim() && !quickContent.trim()) {
-      setQuickOpen(false);
+    if (!title.trim() && !content.trim()) {
+      setOpen(false);
       return;
     }
-    onSubmit({ title: quickTitle, content: quickContent, color: quickColor });
-    setQuickTitle("");
-    setQuickContent("");
-    setQuickColor("default");
-    setQuickOpen(false);
+
+    onSubmit({ title, content, color });
+
+    setTitle("");
+    setContent("");
+    setColor("default");
+    setOpen(false);
   };
 
   return (
-    <div
-      style={{ display: "flex", justifyContent: "center", marginBottom: 20 }}
-    >
+    <div className="quick-create-wrapper">
       <div
-        style={{
-          width: "min(680px, 100%)",
-          borderRadius: 12,
-          border: "1px solid rgba(0,0,0,0.12)",
-          background: getNoteBg(quickColor),
-          boxShadow: quickOpen ? "0 8px 24px rgba(0,0,0,0.12)" : "none",
-          padding: 12,
-        }}
+        className={`quick-create ${open ? "open" : ""}`}
+        style={{ background: getNoteBg(color) }}
+        onClick={() => setOpen(true)}
       >
-        {quickOpen && (
+        {/* Title */}
+        {open && (
           <Input
-            value={quickTitle}
-            onChange={(e) => setQuickTitle(e.target.value)}
-            placeholder="Tieu de"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            placeholder="Tiêu đề"
             variant="borderless"
-            style={{ fontSize: 16, fontWeight: 600 }}
+            className="quick-create-title"
           />
         )}
+
+        {/* Content */}
         <Input.TextArea
-          value={quickContent}
-          onFocus={() => setQuickOpen(true)}
-          onChange={(e) => setQuickContent(e.target.value)}
-          placeholder="Ghi chu..."
+          value={content}
+          onFocus={() => setOpen(true)}
+          onChange={(e) => setContent(e.target.value)}
+          placeholder="Ghi chú..."
           variant="borderless"
-          autoSize={{ minRows: quickOpen ? 3 : 1, maxRows: 8 }}
-          style={{ resize: "none" }}
+          autoSize={{ minRows: open ? 3 : 1, maxRows: 8 }}
+          className="quick-create-textarea"
         />
 
-        {quickOpen && (
+        {/* Toolbar */}
+        {open && (
           <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              marginTop: 8,
-            }}
+            className="quick-create-toolbar"
+            onClick={(e) => e.stopPropagation()}
           >
-            <Space>
+            <div className="quick-create-actions">
               <Dropdown
-                menu={{ items: getColorMenuItems((c) => setQuickColor(c)) }}
+                menu={{ items: getColorMenuItems(setColor) }}
                 trigger={["click"]}
               >
-                <Button size="small">Mau</Button>
+                <Button
+                  icon={<BgColorsOutlined />}
+                  className="quick-create-btn"
+                >
+                  Màu
+                </Button>
               </Dropdown>
-              <Button size="small" type="primary" onClick={handleSave}>
-                Luu
+
+              <Button
+                type="primary"
+                onClick={handleSave}
+                className="quick-create-btn primary"
+              >
+                Lưu
               </Button>
-            </Space>
-            <Button size="small" onClick={() => setQuickOpen(false)}>
-              Dong
+            </div>
+
+            <Button
+              onClick={() => setOpen(false)}
+              className="quick-create-btn quick-create-close"
+            >
+              Đóng
             </Button>
           </div>
         )}

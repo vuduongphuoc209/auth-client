@@ -8,7 +8,7 @@ import { LockOutlined, NumberOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { requestVerifyForgotPassword } from "../../config/UserRequest";
-import "@/styles/reset.css";
+import "@/styles/auth/reset.css";
 
 const { Title, Paragraph, Text } = Typography;
 

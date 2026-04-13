@@ -6,15 +6,11 @@ import type { FormProps } from "antd";
 import { MailOutlined } from "@ant-design/icons";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { requestForgotPassword } from "../../config/UserRequest";
-import "@/styles/forgot.css";
+import { requestForgotPassword } from "@/config/UserRequest";
+import "@/styles/auth/forgot.css";
+import { ForgotPasswordFormValues } from "@/types/forms";
 
 const { Title, Paragraph, Text } = Typography;
-
-// Type form
-interface ForgotPasswordFormValues {
-  email: string;
-}
 
 const ForgotPassword: React.FC = () => {
   const router = useRouter();
