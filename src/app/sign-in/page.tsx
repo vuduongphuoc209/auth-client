@@ -129,7 +129,9 @@ const LoginUser: React.FC = () => {
 
             <Divider>Hoặc</Divider>
 
-            <GoogleOAuthProvider clientId="263079252814-6ch8s83bh1md870i465g8cik64ul7edg.apps.googleusercontent.com">
+            <GoogleOAuthProvider
+              clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!}
+            >
               <GoogleLogin
                 onSuccess={handleSuccess}
                 onError={() => {
