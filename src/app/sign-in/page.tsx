@@ -6,6 +6,7 @@ import type { FormProps } from "antd";
 import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 import { requestLogin, requestLoginGoogle } from "@/config/UserRequest";
 import "@/styles/auth/login.css";
 
@@ -14,141 +15,151 @@ import { GoogleLogin } from "@react-oauth/google";
 
 // Type form
 interface LoginFormValues {
-  email: string;
-  password: string;
-  remember?: boolean;
+    email: string;
+    password: string;
+    remember?: boolean;
 }
 
 const LoginUser: React.FC = () => {
-  const router = useRouter();
-  const [loading, setLoading] = useState<boolean>(false);
+    const router = useRouter();
+    const [loading, setLoading] = useState<boolean>(false);
 
-  const onFinish: FormProps<LoginFormValues>["onFinish"] = async (values) => {
-    setLoading(true);
-    try {
-      const res = await requestLogin(values);
-      console.log(res);
+    const onFinish: FormProps<LoginFormValues>["onFinish"] = async (values) => {
+        setLoading(true);
+        try {
+            const res = await requestLogin(values);
+            console.log(res);
 
-      message.success("Đăng nhập thành công!");
+            message.success("Đăng nhập thành công!");
+            Cookies.set("logged", "1", { sameSite: "lax" });
 
-      // không nên reload
-      // window.location.reload();
+            // không nên reload
+            // window.location.reload();
 
-      // Next.js way
-      router.push("/");
-      router.refresh(); // cập nhật UI nếu dùng cookie auth
-    } catch (error: any) {
-      message.error(error?.response?.data?.message || "Đăng nhập thất bại");
-    } finally {
-      setLoading(false);
-    }
-  };
+            // Next.js way
+            router.push("/");
+            router.refresh(); // cập nhật UI nếu dùng cookie auth
+        } catch (error: any) {
+            message.error(
+                error?.response?.data?.message || "Đăng nhập thất bại",
+            );
+        } finally {
+            setLoading(false);
+        }
+    };
 
-  const handleSuccess = async (response: any) => {
-    try {
-      const { credential } = response;
+    const handleSuccess = async (response: any) => {
+        try {
+            const { credential } = response;
 
-      const res = await requestLoginGoogle(credential);
+            const res = await requestLoginGoogle(credential);
+            Cookies.set("logged", "1", { sameSite: "lax" });
 
-      message.success(res.message);
+            message.success(res.message);
 
-      router.push("/");
-      router.refresh();
-    } catch (error) {
-      message.error("Dang nhap Google that bai");
-      console.log(error);
-    }
-  };
+            router.push("/");
+            router.refresh();
+        } catch (error) {
+            message.error("Dang nhap Google that bai");
+            console.log(error);
+        }
+    };
 
-  return (
-    <div className="login-page">
-      <main className="login-main">
-        <div className="login-container">
-          <div className="login-card">
-            <div className="login-header">
-              <h1>Đăng nhập</h1>
-              <p>Chào mừng bạn quay trở lại!</p>
-            </div>
+    return (
+        <div className="login-page">
+            <main className="login-main">
+                <div className="login-container">
+                    <div className="login-card">
+                        <div className="login-header">
+                            <h1>Đăng nhập</h1>
+                            <p>Chào mừng bạn quay trở lại!</p>
+                        </div>
 
-            <Form<LoginFormValues>
-              layout="vertical"
-              size="large"
-              onFinish={onFinish}
-            >
-              <Form.Item
-                label="Email"
-                name="email"
-                rules={[
-                  { required: true, message: "Nhập email" },
-                  {
-                    type: "email",
-                    message: "Email không hợp lệ",
-                  },
-                ]}
-              >
-                <Input
-                  prefix={<MailOutlined />}
-                  placeholder="example@email.com"
-                />
-              </Form.Item>
+                        <Form<LoginFormValues>
+                            layout="vertical"
+                            size="large"
+                            onFinish={onFinish}
+                        >
+                            <Form.Item
+                                label="Email"
+                                name="email"
+                                rules={[
+                                    { required: true, message: "Nhập email" },
+                                    {
+                                        type: "email",
+                                        message: "Email không hợp lệ",
+                                    },
+                                ]}
+                            >
+                                <Input
+                                    prefix={<MailOutlined />}
+                                    placeholder="example@email.com"
+                                />
+                            </Form.Item>
 
-              <Form.Item
-                label="Mật khẩu"
-                name="password"
-                rules={[
-                  {
-                    required: true,
-                    message: "Nhập mật khẩu",
-                  },
-                  { min: 6, message: "Ít nhất 6 ký tự" },
-                ]}
-              >
-                <Input.Password
-                  prefix={<LockOutlined />}
-                  placeholder="••••••••"
-                />
-              </Form.Item>
+                            <Form.Item
+                                label="Mật khẩu"
+                                name="password"
+                                rules={[
+                                    {
+                                        required: true,
+                                        message: "Nhập mật khẩu",
+                                    },
+                                    { min: 6, message: "Ít nhất 6 ký tự" },
+                                ]}
+                            >
+                                <Input.Password
+                                    prefix={<LockOutlined />}
+                                    placeholder="••••••••"
+                                />
+                            </Form.Item>
 
-              <div className="login-options">
-                <Form.Item name="remember" valuePropName="checked" noStyle>
-                  <Checkbox>Ghi nhớ đăng nhập</Checkbox>
-                </Form.Item>
+                            <div className="login-options">
+                                <Form.Item
+                                    name="remember"
+                                    valuePropName="checked"
+                                    noStyle
+                                >
+                                    <Checkbox>Ghi nhớ đăng nhập</Checkbox>
+                                </Form.Item>
 
-                <Link href="/forgot-password">Quên mật khẩu?</Link>
-              </div>
+                                <Link href="/forgot-password">
+                                    Quên mật khẩu?
+                                </Link>
+                            </div>
 
-              <Button
-                type="primary"
-                htmlType="submit"
-                loading={loading}
-                className="login-btn"
-              >
-                Đăng nhập
-              </Button>
-            </Form>
+                            <Button
+                                type="primary"
+                                htmlType="submit"
+                                loading={loading}
+                                className="login-btn"
+                            >
+                                Đăng nhập
+                            </Button>
+                        </Form>
 
-            <Divider>Hoặc</Divider>
+                        <Divider>Hoặc</Divider>
 
-            <GoogleOAuthProvider
-              clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!}
-            >
-              <GoogleLogin
-                onSuccess={handleSuccess}
-                onError={() => {
-                  console.log("Login Failed");
-                }}
-              />
-            </GoogleOAuthProvider>
+                        <GoogleOAuthProvider
+                            clientId={process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID!}
+                        >
+                            <GoogleLogin
+                                onSuccess={handleSuccess}
+                                onError={() => {
+                                    console.log("Login Failed");
+                                }}
+                            />
+                        </GoogleOAuthProvider>
 
-            <div className="login-footer">
-              <span>Chưa có tài khoản?</span>
-              <Link href="/sign-up">Đăng ký ngay</Link>
-            </div>
-          </div>
+                        <div className="login-footer">
+                            <span>Chưa có tài khoản?</span>
+                            <Link href="/sign-up">Đăng ký ngay</Link>
+                        </div>
+                    </div>
+                </div>
+            </main>
         </div>
-      </main>
-    </div>
-  );
+    );
 };
 
 export default LoginUser;
