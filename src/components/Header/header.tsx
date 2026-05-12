@@ -24,6 +24,7 @@ const Header: React.FC = () => {
         try {
             await requestLogout();
             Cookies.remove("logged");
+            window.dispatchEvent(new Event("authChanged"));
 
             setTimeout(() => {
                 window.location.reload();

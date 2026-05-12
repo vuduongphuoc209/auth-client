@@ -32,6 +32,7 @@ const LoginUser: React.FC = () => {
 
             message.success("Đăng nhập thành công!");
             Cookies.set("logged", "1", { sameSite: "lax" });
+            window.dispatchEvent(new Event("authChanged"));
 
             // không nên reload
             // window.location.reload();
@@ -54,6 +55,7 @@ const LoginUser: React.FC = () => {
 
             const res = await requestLoginGoogle(credential);
             Cookies.set("logged", "1", { sameSite: "lax" });
+            window.dispatchEvent(new Event("authChanged"));
 
             message.success(res.message);
 
